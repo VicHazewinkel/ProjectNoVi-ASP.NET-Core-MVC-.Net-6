@@ -1,28 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjectNoVi_V3.Models;
 using ProjectNoVi_V3.Web.Areas.Identity.Data;
+using ProjectNoVi_V3.Web.Mapper;
+using ProjectNoVi_V3.Web.Services;
+using ProjectNoVi_V3.Web.ViewModels;
 
 namespace ProjectNoVi_V3.Web.Controllers
 {
     public class ProductsController : Controller
     {
+        private readonly IProductService _productService;
+        private readonly IBrandService _brandService;
         private readonly ProjectNoVi_V3_Context _context;
 
-        public ProductsController(ProjectNoVi_V3_Context context)
+        public ProductsController(IProductService productService, IBrandService brandService)
         {
-            _context = context;
+            _productService = productService;
+            _brandService = brandService;
+            //_context = context;
         }
 
         // GET: Products
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Product.ToListAsync());
+            //1. ophalen van products uit DB
+            var productsList = _productService.GetAll();
+            productsList.Add(productsList[0]);
+
+            //get all distinct brand Ids out of products
+            List<int> brandIds= new List<int>();
+            brandIds = productsList.Select(p => p.MerkId).Distinct().ToList();
+
+            var brands = _brandService.GetByIds(brandIds);
+
+            //2. omvormen van products naar viewmodels
+            List<ProductViewModel> viewModelList = new List<ProductViewModel>();
+            foreach (var product in productsList)
+            {
+                var brand = brands.FirstOrDefault(x => x.Id == product.MerkId);
+
+                var viewModel = ProductMapper.Map(product, brand);
+                
+                viewModelList.Add(viewModel); 
+            }
+
+            //3. doorgeven van viewmodels naar view
+            return View(viewModelList);
         }
 
         // GET: Products/Details/5
@@ -148,14 +172,14 @@ namespace ProjectNoVi_V3.Web.Controllers
             {
                 _context.Product.Remove(product);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ProductExists(int id)
         {
-          return _context.Product.Any(e => e.Id == id);
+            return _context.Product.Any(e => e.Id == id);
         }
     }
 }

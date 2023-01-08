@@ -1,5 +1,4 @@
-﻿@model IEnumerable<ProjectNoVi_V3.Models.Product>
-
+﻿@model IEnumerable<ProjectNoVi_V3.Web.ViewModels.ProductViewModel>
 @{
     ViewData["Title"] = "Index";
 }
@@ -17,6 +16,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.MerkId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MerkName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Collectie)
@@ -46,6 +48,9 @@
                 @Html.DisplayFor(modelItem => item.MerkId)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.MerkName)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Collectie)
             </td>
             <td>
@@ -64,6 +69,7 @@
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Sell" asp-route-id="@item.Id">Sell</a> 
             </td>
         </tr>
 }

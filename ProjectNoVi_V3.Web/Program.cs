@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using ProjectNoVi_V3.Web.Areas.Identity.Data;
 using ProjectNoVi_V3.Models;
 using ProjectNoVi_V3.Data;
+using ProjectNoVi_V3.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ProjectNoVi_V3_ContextConnection") ?? throw new InvalidOperationException("Connection string 'ProjectNoVi_V3_ContextConnection' not found.");
@@ -13,6 +14,12 @@ builder.Services.AddDbContext<ProjectNoVi_V3_Context>(options =>
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ProjectNoVi_V3_Context>();
+
+//own services
+//builder.Services.AddSingleton<IProductService, ProductsService>();
+//builder.Services.AddTransient<IProductService, ProductsService>();
+builder.Services.AddScoped<IProductService, ProductsService>();
+builder.Services.AddScoped<IBrandService, BrandssService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
