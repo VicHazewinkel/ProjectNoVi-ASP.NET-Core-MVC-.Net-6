@@ -28,11 +28,11 @@ builder.Services.AddControllersWithViews();
 var app = builder.Build();
 
 
-using (var scope = app.Services.CreateScope())
+using (var scope = app.Services.CreateAsyncScope())
 {
     var services = scope.ServiceProvider;
     Seeder seeder = new Seeder(services);
-    seeder.Seed();
+    await seeder.Seed();
 }
 
 

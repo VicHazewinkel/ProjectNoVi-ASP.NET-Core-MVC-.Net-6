@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using ProjectNoVi_V3.Enums;
 using ProjectNoVi_V3.Models;
 using ProjectNoVi_V3.Web.Areas.Identity.Data;
@@ -23,11 +24,62 @@ public class Seeder
         }
     }
 
-    public void Seed()
+    public async Task Seed()
     {
         this.AddBrands();
         this.AddProducts();
         this.AddUsers();
+        this.AddUserRoles();
+        await AssignRoles();
+    }
+
+    private async Task AssignRoles()
+    {
+        string[] adminRole = { "Admin" };
+        await AssignRoles(serviceProvider, "Admin@gmail.com", adminRole);
+
+        string[] userRole = { "User" };
+        await AssignRoles(serviceProvider, "User@gmail.com", userRole);
+
+        string[] optometristRole = { "Optometrist" };
+        await AssignRoles(serviceProvider, "Optometrist@gmail.com", optometristRole);
+    }
+
+    private async Task<IdentityResult> AssignRoles(IServiceProvider services, string email, string[] roles)
+    {
+        try
+        {
+            UserManager<ApplicationUser> _userManager = services.GetService<UserManager<ApplicationUser>>();
+            ApplicationUser user = await _userManager.FindByEmailAsync(email);
+            //var result = await _userManager.AddToRolesAsync(user, roles);
+            var result = _userManager.AddToRolesAsync(user, roles).Result;
+            return result;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+        private void AddUserRoles()
+    {
+        CreateRole("Optometrist");
+        CreateRole("Admin");
+        CreateRole("User");
+    }
+    private void CreateRole(string role)
+    {
+        if (dbContext.Roles.Any(x => x.Name == role))
+        {
+            return;
+        }
+        dbContext.Roles.Add(new IdentityRole
+        {
+            Name = role,
+            NormalizedName = role.ToUpper()
+        });
+        dbContext.SaveChanges();
     }
 
     private void AddProducts()
@@ -182,12 +234,16 @@ public class Seeder
         var isSeeded = dbContext.Users.Any();
         if (isSeeded) return;
 
+        string firstUserEmail = "User@gmail.com";
+        string SecondUserEmail = "Optometrist@gmail.com";
+        string ThirdUserEmail = "Admin@gmail.com"; 
         ApplicationUser FirstUser = new ApplicationUser()
         {
             //Id = "0",
             UserName = "User@gmail.com",
             Name = "User",
-            Email = "User@gmail.com",
+            Email = firstUserEmail,
+            NormalizedEmail = firstUserEmail.ToUpper(),
             EmailConfirmed = true,
             PasswordHash = "Abc@123",
             SecurityStamp = Guid.NewGuid().ToString("D"),
@@ -198,8 +254,9 @@ public class Seeder
             //Id = "0",
             UserName = "Optometrist@gmail.com",
             Name = "Optometrist",
-            Email = "Optometrist@gmail.com",
-            EmailConfirmed = true,
+            Email = SecondUserEmail,
+            NormalizedEmail = SecondUserEmail.ToUpper(), 
+            EmailConfirmed = true, 
             PasswordHash = "Abc@123",
             SecurityStamp = Guid.NewGuid().ToString("D"),
         };
@@ -209,7 +266,8 @@ public class Seeder
             //Id = "0",
             UserName = "Admin@gmail.com",
             Name = "Admin",
-            Email = "Admin@gmail.com",
+            Email = ThirdUserEmail,
+            NormalizedEmail = ThirdUserEmail.ToUpper(),
             EmailConfirmed = true,
             PasswordHash = "Abc@123",
             SecurityStamp = Guid.NewGuid().ToString("D"),
