@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProjectNoVi_V3.Models;
 using ProjectNoVi_V3.Web.Areas.Identity.Data;
 
+
 namespace ProjectNoVi_V3.Web.Controllers
 {
+    [Authorize(Roles = "Optometrist,Admin")]
     public class BrandsController : Controller
     {
         private readonly ProjectNoVi_V3_Context _context;
