@@ -11,8 +11,12 @@ namespace ProjectNoVi_V3.Models
         public int ProductId { get; set; }
 
         [ForeignKey("ProductId")]
+        [Display (Name = "Items")]
         [ValidateNever]
         public Product Product { get; set; }
+
+        [Display(Name = "Qualtity")]
+        public int Qualtity { get; set; }
 
         public string ApplicationUserId { get; set; }
 
