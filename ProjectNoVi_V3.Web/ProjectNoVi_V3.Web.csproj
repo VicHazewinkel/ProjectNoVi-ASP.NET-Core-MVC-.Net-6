@@ -22,8 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="APIModels\" />
-    <Folder Include="APIControllers\" />
+    <Folder Include="Controllers\APIControllers\DTOs\" />
+    <Folder Include="Controllers\APIControllers\" />
   </ItemGroup>
 
 </Project>
