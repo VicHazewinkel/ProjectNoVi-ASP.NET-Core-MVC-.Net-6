@@ -22,4 +22,6 @@ public class ProjectNoVi_V3_Context : IdentityDbContext<ApplicationUser>
     public DbSet<Brand> Brand { get; set; }
 
     public DbSet<Product> Product { get; set; }
+
+    public DbSet<ProjectNoVi_V3.Models.ShoppingCart> ShoppingCart { get; set; }
 }

@@ -55,8 +55,16 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Brands" asp-action="Index">Users</a>          @*Admin*@
                             </li>
                         }
-                        
-                        
+                        @if (User.IsInRole("Optometrist") || User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nac-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="tree" aria-expanded="false"> Optometrist</a>
+                                <div class="dropdown-menu"> 
+                                    <a class="dropdown-item"> dropdown 1</a>
+                                    <a class="dropdown-item"> dropdown 1</a>
+                                </div>
+                            </li>
+                        }
 
                     </ul>
                     <partial name="_LoginPartial" />
