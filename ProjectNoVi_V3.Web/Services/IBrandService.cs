@@ -9,11 +9,11 @@ public interface IBrandService
     public List<Brand> GetByIds(List<int> ids);
 }
 
-public class BrandssService : IBrandService
+public class BrandsService : IBrandService
 {
     private readonly ProjectNoVi_V3_Context _context;
 
-    public BrandssService(ProjectNoVi_V3_Context context)
+    public BrandsService(ProjectNoVi_V3_Context context)
     {
         _context = context;
     }

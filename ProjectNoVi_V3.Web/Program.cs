@@ -19,7 +19,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 //builder.Services.AddSingleton<IProductService, ProductsService>();
 //builder.Services.AddTransient<IProductService, ProductsService>();
 builder.Services.AddScoped<IProductService, ProductsService>();
-builder.Services.AddScoped<IBrandService, BrandssService>();
+builder.Services.AddScoped<IBrandService, BrandsService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

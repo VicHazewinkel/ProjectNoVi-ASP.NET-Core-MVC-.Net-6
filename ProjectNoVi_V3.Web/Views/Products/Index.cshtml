@@ -2,13 +2,17 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h1>Ons Aanbod</h1>
-
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@if (User.IsInRole("Optometrist") || User.IsInRole("Admin"))
+    {
+        <h1>Product Managment</h1>
+        <p>
+            <a asp-action="Create">Create New</a>
+        </p>
+    } 
+    else 
+    {
+        <h1>Ons Aanbod</h1>
+    }
 <table class="table">
     <thead>
         <tr>
@@ -66,12 +70,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Correctie)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                <a asp-action="AddToCard" asp-route-id="@item.Id">Add To Card</a>
-            </td>
+                @if (User.IsInRole("Optometrist") || User.IsInRole("Admin"))
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a asp-action="AddToCard" asp-route-id="@item.Id">Add To Card</a>
+                    </td>
+                } 
+            
         </tr>
 }
     </tbody>

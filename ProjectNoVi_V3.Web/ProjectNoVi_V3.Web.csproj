@@ -21,9 +21,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.4.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\APIControllers\DTOs\" />
-    <Folder Include="Controllers\APIControllers\" />
-  </ItemGroup>
-
 </Project>
