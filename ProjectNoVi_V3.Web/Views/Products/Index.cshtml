@@ -13,7 +13,7 @@
     {
         <h1>Ons Aanbod</h1>
     }
-<table class="table">
+@*<table class="table">
     <thead>
         <tr>
             <th>
@@ -79,8 +79,47 @@
                         <a asp-action="AddToCard" asp-route-id="@item.Id">Add To Card</a>
                     </td>
                 } 
-            
         </tr>
 }
     </tbody>
-</table>
+</table>*@
+
+<div class="row pd-3">
+    @foreach (var item in Model) 
+{
+    <div class="col-lg-3 col-md-6"> 
+        <div class="row p-2">
+            <div class="col-12 p-1" style="border:1px solid #008cba; border-radius: 5px;">
+                <div class="card">
+                    <img class="card-img-top rounded" src="~/images/png/logo-color.png"/>
+                    <div class="pl-1">
+                        <p class="card-title text-info"> @Html.DisplayFor(modelItem => item.Type)</p>
+                        <p class="card-title h5 text-primary"> @Html.DisplayFor(modelItem => item.MerkName)</p>
+                    </div>
+                    <div>
+                        <p class="card-title text-secondary">Collectie: @Html.DisplayFor(modelItem => item.Collectie)</p>
+                    </div>
+                    <div>
+                        <p class="card-title text-secondary">Kleur: @Html.DisplayFor(modelItem => item.Kleur)</p>
+                        <p class="card-title text-secondary">Materiaal: @Html.DisplayFor(modelItem => item.Materiaal)</p>
+                        <p class="card-title text-secondary">Prijs: @Html.DisplayFor(modelItem => item.Prijs)</p>
+                    </div>
+                    <div>
+                            <a class="btn btn-primary form-control" asp-controller="ShoppingCartControllerV2" asp-action="Index">Add To Card</a>
+                    </div>
+                    <div> 
+                        @if (User.IsInRole("Optometrist") || User.IsInRole("Admin"))
+                        {
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            </td>
+                                
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+</div>
