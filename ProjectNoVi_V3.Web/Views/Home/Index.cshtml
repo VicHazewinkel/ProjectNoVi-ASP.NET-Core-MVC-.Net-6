@@ -1,4 +1,7 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -14,8 +17,8 @@
         <div class="row justify-content-center">
             <div class="col-lg-6">
                 <h2>Team Optiek NoVi</h2>
-                <p class="lead">NoVi zet de toon in kijkmode. Doorheen de jaren verfijnden we onze aanpak én onze collectie. Vandaag kom je terecht in een moderne optiekzaak, vol gedreven opticiens die naar je luisteren en oplossingen voorstellen die écht bij je passen.</p>
-                <p class="mb-0">The universe is almost 14 billion years old, and, wow! Life had no problem starting here on Earth! I think it would be inexcusably egocentric of us to suggest that we're alone in the universe.</p>
+                <p class="lead">@Localizer["Intro"]</p>
+                <p class="mb-0">@Localizer["Intro2"]</p>
             </div>
         </div>
     </div>
@@ -24,7 +27,7 @@
     <div class="col-md-4 mb-5">
         <div class="card h-100">
             <div class="card-body">
-                <h2 class="card-title">Neem contact op</h2>
+                <h2 class="card-title">@Localizer["Contact"]</h2>
                 <p class="card-text">Optiek NoVi</p>
                 <p class="card-text">Quai de l'Industrie 170</p>
                 <p class="card-text">1070 Anderlecht</p>
@@ -37,11 +40,11 @@
     <div class="col-md-4 mb-5">
         <div class="card h-100">
             <div class="card-body">
-                <h2 class="card-title">Openingsuren</h2>
-                <p class="card-text fw-bold">Dinsdag - Zaterdag</p>
-                <p class="card-text">Doorlopend van 09u – 18u</p>
-                <p class="card-text fw-bold">Zondag - Maandag</p>
-                <p class="card-text">Gesloten</p>
+                <h2 class="card-title">@Localizer["Opening_hours"]</h2>
+                <p class="card-text fw-bold">@Localizer["Opening_hours1"]</p>
+                <p class="card-text">@Localizer["Opening_hours2"]</p>
+                <p class="card-text fw-bold">@Localizer["Opening_hours3"]</p>
+                <p class="card-text">@Localizer["Opening_hours4"]</p>
             </div>
             <div class="card-footer"><a class="" href="#!"></a></div>
         </div>

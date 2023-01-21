@@ -1,17 +1,20 @@
-﻿@model IEnumerable<ProjectNoVi_V3.Web.ViewModels.ProductViewModel>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@model IEnumerable<ProjectNoVi_V3.Web.ViewModels.ProductViewModel>
 @{
     ViewData["Title"] = "Index";
 }
 @if (User.IsInRole("Optometrist") || User.IsInRole("Admin"))
     {
-        <h1>Product Managment</h1>
+        <h1>@Localizer["ProdyctManagment"]</h1>
         <p>
-            <a asp-action="Create">Create New</a>
+            <a asp-action="Create">@Localizer["add_Product"]</a>
         </p>
     } 
     else 
     {
-        <h1>Ons Aanbod</h1>
+    <h1>@Localizer["OnsAanbod"]</h1>
     }
 @*<table class="table">
     <thead>
@@ -97,22 +100,22 @@
                         <p class="card-title h5 text-primary"> @Html.DisplayFor(modelItem => item.MerkName)</p>
                     </div>
                     <div>
-                        <p class="card-title text-secondary">Collectie: @Html.DisplayFor(modelItem => item.Collectie)</p>
+                            <p class="card-title text-secondary">@Localizer["Collectie"]: @Html.DisplayFor(modelItem => item.Collectie)</p>
                     </div>
                     <div>
-                        <p class="card-title text-secondary">Kleur: @Html.DisplayFor(modelItem => item.Kleur)</p>
-                        <p class="card-title text-secondary">Materiaal: @Html.DisplayFor(modelItem => item.Materiaal)</p>
-                        <p class="card-title text-secondary">Prijs: @Html.DisplayFor(modelItem => item.Prijs)</p>
+                            <p class="card-title text-secondary">@Localizer["Kleur"]: @Html.DisplayFor(modelItem => item.Kleur)</p>
+                            <p class="card-title text-secondary">@Localizer["Materiaal"]: @Html.DisplayFor(modelItem => item.Materiaal)</p>
+                            <p class="card-title text-secondary">@Localizer["Prijs"]: @Html.DisplayFor(modelItem => item.Prijs)</p>
                     </div>
                     <div>
-                            <a class="btn btn-primary form-control" asp-controller="ShoppingCartControllerV2" asp-action="Index">Add To Card</a>
+                            <a class="btn btn-primary form-control" asp-controller="ShoppingCartControllerV2" asp-action="Index">@Localizer["Add"]</a>
                     </div>
                     <div> 
                         @if (User.IsInRole("Optometrist") || User.IsInRole("Admin"))
                         {
                             <td>
-                                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                    <a asp-action="Edit" asp-route-id="@item.Id">@Localizer["Edit"]</a> |
+                                    <a asp-action="Delete" asp-route-id="@item.Id">@Localizer["Delete"]</a>
                             </td>
                                 
                         }

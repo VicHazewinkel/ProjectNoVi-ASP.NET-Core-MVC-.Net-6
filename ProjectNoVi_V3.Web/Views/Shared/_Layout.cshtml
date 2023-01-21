@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -22,33 +25,33 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>             @*User - Opto - Admin*@
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>             @*User - Opto - Admin*@
                         </li>
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="tree" aria-expanded="false"> Ons aanbod</a>
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="tree" aria-expanded="false">@Localizer["OnsAanbod"]</a>
                             <div class="dropdown-menu">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">All Glasses</a>          @*User - Admin*@
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Regular Glasses</a>      @*User - Admin*@
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Sun Glasses</a>          @*User - Admin*@
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Lenses</a>               @*User - Admin*@
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">@Localizer["All_Glasses"]</a>          @*User - Admin*@
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">@Localizer["Regular_Glasses"]</a>      @*User - Admin*@
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">@Localizer["Sun_Glasses"]</a>          @*User - Admin*@
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">@Localizer["Lenses"]</a>               @*User - Admin*@
                             </div>
                         </li>
                         @if (User.IsInRole("Admin") || User.IsInRole("User"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="ShoppingCartControllerV2" asp-action="Index">Shopping Card</a>    @*User - Opto - Admin*@
+                                <a class="nav-link text-dark" asp-area="" asp-controller="ShoppingCartControllerV2" asp-action="Index">@Localizer["Shopping_Card"]</a>    @*User - Opto - Admin*@
                             </li>
                         }
                         
                         @if (User.IsInRole("Optometrist") || User.IsInRole("Admin"))
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="tree" aria-expanded="false">Optometrist</a>
-                                <div class="dropdown-menu"> 
-                                    <a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Products</a>       @*Opto - Admin*@
-                                    <a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="Brands" asp-action="Index">Brands</a>           @*Opto - Admin*@
-                                    <a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="Sales" asp-action="Index">Sales</a>             @*Opto - Admin*@
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="tree" aria-expanded="false">@Localizer["Optometrist"]</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">@Localizer["Products"]</a>       @*Opto - Admin*@
+                                    <a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="Brands" asp-action="Index">@Localizer["Brands"]</a>           @*Opto - Admin*@
+                                    <a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="Sales" asp-action="Index">@Localizer["Sales"]</a>             @*Opto - Admin*@
                                 </div>
                             </li>
                         }
@@ -57,12 +60,16 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="tree" aria-expanded="false">Admin</a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="Brands" asp-action="Index">Users</a>            @*Admin*@
+                                    <a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="Brands" asp-action="Index">@Localizer["Users"]</a>            @*Admin*@
                                 </div>
                             </li>
                         }
                     </ul>
-                    <partial name="_LoginPartial" />
+
+                    @*verwijzing naar LanguagePatial *@
+                    <partial name="_LanguagePartial" />
+                    <partial name="_LoginPartial" /> 
+
                 </div>
             </div>
         </nav>
