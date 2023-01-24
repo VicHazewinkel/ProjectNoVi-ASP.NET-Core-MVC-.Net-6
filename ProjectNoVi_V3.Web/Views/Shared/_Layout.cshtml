@@ -32,9 +32,10 @@
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="tree" aria-expanded="false">@Localizer["OnsAanbod"]</a>
                             <div class="dropdown-menu">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">@Localizer["All_Glasses"]</a>          @*User - Admin*@
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">@Localizer["Regular_Glasses"]</a>      @*User - Admin*@
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">@Localizer["Sun_Glasses"]</a>          @*User - Admin*@
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">@Localizer["Lenses"]</a>               @*User - Admin*@
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index" asp-route-type="0">@Localizer["Regular_Glasses"]</a>      @*User - Admin*@
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index" asp-route-type="1">@Localizer["Sun_Glasses"]</a>          @*User - Admin*@
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index" asp-route-type="2">@Localizer["Lenses"]</a>               @*User - Admin*@
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index" asp-route-type="3">@Localizer["Lenses"]</a>               @*User - Admin*@
                             </div>
                         </li>
                         @if (User.IsInRole("Admin") || User.IsInRole("User"))

@@ -12,15 +12,34 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
             <div class="form-group">
+                <label asp-for="Type" class="control-label"></label>
+                <select asp-for="Type" class="form-control">
+                    <option value="0">Optical glasses</option>
+                    <option value="1">Sun glasses</option>
+                    <option value="2">Daily Lens</option>
+                    <option value="3">Monthy Lens</option>
+                </select>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div
+            @*<div class="form-group">
                 <label asp-for="Type" class="control-label"></label>
                 <select asp-for="Type" class="form-control"></select>
                 <span asp-validation-for="Type" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <label asp-for="MerkId" class="control-label"></label>
                 @*<select multiple="multiple" asp-for="ProductMerk" class="form-control" asp-items="ViewBag.ProductMerk"></select>*@
-                <input asp-for="MerkId" class="form-control" />
+                <select asp-for="MerkId" class="form-control">
+                    <option value="0">Lindberg</option>
+                    <option value="1">Gucci</option>
+                    <option value="2">Tom Ford</option>
+                    <option value="3">Theo</option>
+                    <option value="4">Cartier</option>
+                    <option value="5">Alcon</option>
+                    <option value="6">Coopervision</option>
+                </select>
                 <span asp-validation-for="MerkId" class="text-danger"></span>
             </div>
             <div class="form-group">

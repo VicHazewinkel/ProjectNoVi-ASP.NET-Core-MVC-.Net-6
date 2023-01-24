@@ -1,4 +1,6 @@
-﻿@model ProjectNoVi_V3.Models.Product
+﻿@*@model ProjectNoVi_V3.Web.Models.Product*@
+@model ProjectNoVi_V3.Web.ViewModels.ProductViewModel
+
 
 @{
     ViewData["Title"] = "Edit";
@@ -15,9 +17,17 @@
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Type" class="control-label"></label>
-                <select asp-for="Type" class="form-control"></select>
+                <select asp-for="Type" class="form-control">
+                    <option value="0">Optical glasses</option>
+                    <option value="1">Sun glasses</option>
+                    <option value="2">Daily Lens</option>
+                    <option value="3">Monthy Lens</option>
+                </select>
                 <span asp-validation-for="Type" class="text-danger"></span>
+
             </div>
+            
+
             <div class="form-group">
                 <label asp-for="MerkId" class="control-label"></label>
                 <input asp-for="MerkId" class="form-control" />
@@ -42,11 +52,6 @@
                 <label asp-for="Prijs" class="control-label"></label>
                 <input asp-for="Prijs" class="form-control" />
                 <span asp-validation-for="Prijs" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Correctie" class="control-label"></label>
-                <input asp-for="Correctie" class="form-control" />
-                <span asp-validation-for="Correctie" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

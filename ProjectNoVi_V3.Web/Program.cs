@@ -28,8 +28,8 @@ builder.Services.AddMvc()
 //own services
 //builder.Services.AddSingleton<IProductService, ProductsService>();
 //builder.Services.AddTransient<IProductService, ProductsService>();
-builder.Services.AddScoped<IProductService, ProductsService>();
 builder.Services.AddScoped<IBrandService, BrandsService>();
+builder.Services.AddScoped<IProductService, ProductsService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

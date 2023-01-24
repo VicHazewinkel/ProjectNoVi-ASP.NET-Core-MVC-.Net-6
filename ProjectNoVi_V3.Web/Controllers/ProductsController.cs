@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ProjectNoVi_V3.Enums;
 using ProjectNoVi_V3.Models;
 using ProjectNoVi_V3.Web.Areas.Identity.Data;
 using ProjectNoVi_V3.Web.Mapper;
@@ -22,10 +23,16 @@ namespace ProjectNoVi_V3.Web.Controllers
         }
 
         // GET: Products
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(ProductType? type = null)
         {
             //1. ophalen van products uit DB
             var productsList = _productService.GetAll();
+
+            if (type != null)
+            {
+                productsList = productsList.Where(x => x.Type == type).ToList();
+            }
+
             productsList.Add(productsList[0]);
 
             //get all distinct brand Ids out of products
@@ -82,8 +89,8 @@ namespace ProjectNoVi_V3.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(product);
-                await _context.SaveChangesAsync();
+                _productService.Upsert(product); 
+                
                 return RedirectToAction(nameof(Index));
             }
             return View(product);
@@ -92,17 +99,20 @@ namespace ProjectNoVi_V3.Web.Controllers
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Product == null)
+            if (id == null || _productService == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product.FindAsync(id);
-            if (product == null)
+            int nonNullableInt = (int)id;   
+
+            ProductViewModel productVm = _productService.GetViewModelById(nonNullableInt);
+                
+            if (productVm == null)
             {
                 return NotFound();
             }
-            return View(product);
+            return View(productVm);
         }
 
         // POST: Products/Edit/5
@@ -121,8 +131,7 @@ namespace ProjectNoVi_V3.Web.Controllers
             {
                 try
                 {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
+                    _productService.Upsert(product);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -141,21 +150,25 @@ namespace ProjectNoVi_V3.Web.Controllers
         }
 
         // GET: Products/Delete/5
+
+        // delete zonder delete (onzichtbaar maken) 
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Product == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null)
+
+            int nonNullableInt = (int)id;
+            ProductViewModel productVm = _productService.GetViewModelById(nonNullableInt);
+
+            if (productVm == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(productVm);
         }
 
         // POST: Products/Delete/5
@@ -163,17 +176,15 @@ namespace ProjectNoVi_V3.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Product == null)
+            if (_productService == null)
             {
-                return Problem("Entity set 'ProjectNoVi_V3_Context.Product'  is null.");
+                return Problem("Product service is null.");
             }
-            var product = await _context.Product.FindAsync(id);
-            if (product != null)
+            var result = _productService.DeleteById(id);
+            if( ! result)
             {
-                _context.Product.Remove(product);
+                return Problem("Can not delete at this time.");
             }
-
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
