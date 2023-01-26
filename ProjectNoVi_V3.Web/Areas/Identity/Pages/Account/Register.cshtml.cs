@@ -34,12 +34,14 @@ namespace ProjectNoVi_V3.Web.Areas.Identity.Pages.Account
         private readonly IEmailSender _emailSender;
         private readonly RoleManager<ApplicationUser> _roleManager;
 
+        // _TODO (Defauld role on new register User) 
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
+            //RoleManager<IdentityRole> roleManager,
             IEmailSender emailSender)
         {
             _userManager = userManager;
@@ -47,6 +49,7 @@ namespace ProjectNoVi_V3.Web.Areas.Identity.Pages.Account
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
             _logger = logger;
+            //_roleManager = roleManager;  
             _emailSender = emailSender;
         }
 
@@ -150,7 +153,19 @@ namespace ProjectNoVi_V3.Web.Areas.Identity.Pages.Account
                 
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
-                if (result.Succeeded)
+
+                // Toevoegen Deadault User Role op Register 
+
+                //if (result.Succeeded)
+                //{
+                //    var defaultrole = _roleManager.FindByNameAsync("Default").Result;
+
+                //    if (defaultrole != null)
+                //    {
+                //        IdentityResult roleresult = await _userManager.AddToRoleAsync(user, defaultrole.Name);
+                //    }
+
+                    if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 

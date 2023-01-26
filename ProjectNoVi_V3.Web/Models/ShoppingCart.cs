@@ -4,6 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProjectNoVi_V3.Models
 {
+
+    // _TODO Fix SHopping cart Model 
+    // Het ForeignKey-attribuut in Product (naar merk) staat juist.
+    // De ForeignKey-attributen in ShoppingCart zijn fout en kunnen niet werken.
+    // Volg het model van Merk
+
     public class ShoppingCart
     {
         public int Id { get; set; }
