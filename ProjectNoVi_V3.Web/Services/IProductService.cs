@@ -27,6 +27,8 @@ public interface IProductService
     /// <param name="id"></param>
     /// <returns></returns>
     public bool DeleteById(int id);
+
+    public bool UpdateById(Product product); 
 }
 
 public class ProductsService : IProductService
@@ -109,6 +111,25 @@ public class ProductsService : IProductService
         var productViewModel = ProductMapper.Map(dbProduct, dbBrand);
 
         return productViewModel;
+    }
+
+    public bool UpdateById(Product paramProduct)
+    {
+        //get by Id
+        var product = GetProdcutyId(paramProduct.Id);
+
+        //if not found, STOP
+        if (product == null)
+        {
+            return false; 
+        }
+
+        //if found; update
+        //_context.Product.Update(product);
+        _context.Update(paramProduct);
+        _context.SaveChanges();
+
+        return true;
     }
 
     /// <summary>

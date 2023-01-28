@@ -7,6 +7,7 @@ using ProjectNoVi_V3.Models;
 using ProjectNoVi_V3.Web.Controllers.APIControllers.DTOs;
 using ProjectNoVi_V3.Web.Migrations;
 using ProjectNoVi_V3.Web.Services;
+using System.Net;
 
 namespace ProjectNoVi_V3.Web.Controllers.APIControllers
 {
@@ -73,7 +74,6 @@ namespace ProjectNoVi_V3.Web.Controllers.APIControllers
         [HttpPost]
         public async Task<IActionResult> Upsert(ProductDto productDto)
         {
-
             //Enum.TryParse("Active", out StatusEnum myStatus);
 
             bool result = Enum.TryParse(productDto.type, out ProductType productType);
@@ -106,6 +106,68 @@ namespace ProjectNoVi_V3.Web.Controllers.APIControllers
             } 
 
             return new OkObjectResult(upsertResult);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromQuery] int id)
+        {
+            //zoeken op basis van id
+            var result = _productService.DeleteById(id);
+            // var result = true;
+            if(result)
+            {
+                return new OkObjectResult("ok");
+            }
+
+            return new BadRequestObjectResult("Not Ok");
+            
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update ([FromQuery]int id, [FromBody]ProductDto productDto)
+        {
+            if(id == null && id == 0) 
+            {
+                return new BadRequestObjectResult("id is required for update");
+            }
+
+            // string omzetten naar Enum 
+            bool result = Enum.TryParse(productDto.type, out ProductType productType);
+
+            if (result == false)
+            {
+                return new BadRequestObjectResult("Could not parse type into enum.");
+            }
+
+            var brands = _brandsService.GetAll();
+            var brand = brands.FirstOrDefault(x => x.MerkName == productDto.brandName);
+
+            if (brand == null)
+            {
+                var response =  new BadRequestObjectResult("Could not find brand based on brandname");
+                response.StatusCode = (int) HttpStatusCode.NotFound;
+                return response;
+            }
+
+            var product = new Product()
+            {
+                Id = id,
+                Type = productType,
+                ProductMerk = brand,
+                Collectie = productDto.collection,
+                Kleur = productDto.color,
+                Materiaal = productDto.material,
+                Prijs = productDto.price,
+                Correctie = productDto.correction,
+                MerkId = brand.Id,
+            };
+
+            var updateResult = _productService.UpdateById(product); 
+            if(updateResult) 
+            {
+                return new OkObjectResult("ok"); 
+            }
+            return new BadRequestObjectResult("Not Ok"); 
         }
     }
 }
