@@ -32,7 +32,7 @@ namespace ProjectNoVi_V3.Web.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly RoleManager<ApplicationUser> _roleManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         // _TODO (Defauld role on new register User) 
 
@@ -41,7 +41,8 @@ namespace ProjectNoVi_V3.Web.Areas.Identity.Pages.Account
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            //RoleManager<IdentityRole> roleManager,
+            RoleManager<IdentityRole> roleManager,
+            //RoleManager<ApplicationUser> roleManager,
             IEmailSender emailSender)
         {
             _userManager = userManager;
@@ -49,7 +50,7 @@ namespace ProjectNoVi_V3.Web.Areas.Identity.Pages.Account
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
             _logger = logger;
-            //_roleManager = roleManager;  
+            _roleManager = roleManager;  
             _emailSender = emailSender;
         }
 
@@ -165,8 +166,15 @@ namespace ProjectNoVi_V3.Web.Areas.Identity.Pages.Account
                 //        IdentityResult roleresult = await _userManager.AddToRoleAsync(user, defaultrole.Name);
                 //    }
 
-                    if (result.Succeeded)
+                if (result.Succeeded)
                 {
+                    var defaultrole = _roleManager.FindByNameAsync("user").Result;
+
+                    if (defaultrole != null)
+                    {
+                        IdentityResult roleresult = await _userManager.AddToRoleAsync(user, defaultrole.Name);
+                    }
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
