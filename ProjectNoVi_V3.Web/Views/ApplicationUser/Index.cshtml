@@ -1,0 +1,41 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@model IEnumerable<ProjectNoVi_V3.Models.ApplicationUser>
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>@Localizer["ApplicationUser"]</h1>
+<h2>@Localizer["Beheerders_Pagina"]</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Localizer["UserName"]</th>
+            <th>@Localizer["Email"]</th>
+            <th>@Localizer["PhoneNumber"]</th>
+            <th>@Localizer["Role"]</th>
+        </tr>
+    </thead>
+    <tbody>
+            @*@foreach (var user in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => user.Name)
+                    @Html.DisplayFor(modelItem => user.Email)
+                    @Html.DisplayFor(modelItem => user.PhoneNumber)
+
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@user.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@user.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@user.Id">Delete</a>
+                </td>
+            </tr>
+            }*@
+    </tbody>
+</table>

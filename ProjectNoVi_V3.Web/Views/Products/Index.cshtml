@@ -107,9 +107,11 @@
                             <p class="card-title text-secondary">@Localizer["Materiaal"]: @Html.DisplayFor(modelItem => item.Materiaal)</p>
                             <p class="card-title text-secondary">@Localizer["Prijs"]: @Html.DisplayFor(modelItem => item.Prijs)</p>
                     </div>
+                    @*
                     <div>
                             <a class="btn btn-primary form-control" asp-controller="ShoppingCartControllerV2" asp-action="Index">@Localizer["Add"]</a>
                     </div>
+                    *@
                     <div> 
                         @if (User.IsInRole("Optometrist") || User.IsInRole("Admin"))
                         {
