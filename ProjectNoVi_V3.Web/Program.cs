@@ -6,6 +6,8 @@ using ProjectNoVi_V3.Data;
 using ProjectNoVi_V3.Web.Services;
 using Microsoft.AspNetCore.Mvc.Razor;
 using ProjectNoVi_V3.Web.Models;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using NETCore.MailKit.Infrastructure.Internal;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ProjectNoVi_V3_ContextConnection") ?? throw new InvalidOperationException("Connection string 'ProjectNoVi_V3_ContextConnection' not found.");
@@ -26,6 +28,7 @@ builder.Services.AddMvc()
 
 
 //own services
+
 //builder.Services.AddSingleton<IProductService, ProductsService>();
 //builder.Services.AddTransient<IProductService, ProductsService>();
 builder.Services.AddScoped<IBrandService, BrandsService>();
@@ -33,6 +36,22 @@ builder.Services.AddScoped<IProductService, ProductsService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// MailKit Service
+builder.Services.AddTransient<IEmailSender, MailKitService>();
+builder.Services.Configure<MailKitOptions>(options =>
+{
+    options.Server = builder.Configuration["ExternalProviders:MailKit:SMTP:Address"];
+    options.Port = Convert.ToInt32(builder.Configuration["ExternalProviders:MailKit:SMTP:Port"]);
+    options.Account = builder.Configuration["ExternalProviders:MailKit:SMTP:Account"];
+    options.Password = builder.Configuration["ExternalProviders:MailKit:SMTP:Password"];
+    options.SenderEmail = builder.Configuration["ExternalProviders:MailKit:SMTP:SenderEmail"];
+    options.SenderName = builder.Configuration["ExternalProviders:MailKit:SMTP:SenderName"];
+    // Set it to TRUE to enable ssl or tls, FALSE otherwise
+    options.Security = false;  // true zet ssl or tls aan
+});
+
+
 
 var app = builder.Build();
 
