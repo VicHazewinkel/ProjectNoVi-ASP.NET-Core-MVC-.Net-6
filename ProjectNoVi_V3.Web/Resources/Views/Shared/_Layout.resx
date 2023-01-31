@@ -123,11 +123,17 @@
   <data name="Brands" xml:space="preserve">
     <value>Brands</value>
   </data>
+  <data name="Daily_lenses" xml:space="preserve">
+    <value>Daily lenses</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>
   <data name="Lenses" xml:space="preserve">
     <value>Lenses</value>
+  </data>
+  <data name="Monthly_lenses" xml:space="preserve">
+    <value>Monthly lenses</value>
   </data>
   <data name="OnsAanbod" xml:space="preserve">
     <value>Our Products</value>

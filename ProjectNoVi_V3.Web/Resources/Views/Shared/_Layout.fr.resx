@@ -133,4 +133,10 @@
   <data name="Users" xml:space="preserve">
     <value>Utilisateurs</value>
   </data>
+  <data name="Monthly_lenses" xml:space="preserve">
+    <value>Lentilles mensuelles</value>
+  </data>
+  <data name="Daily_lenses" xml:space="preserve">
+    <value>Lentilles journalières</value>
+  </data>
 </root>

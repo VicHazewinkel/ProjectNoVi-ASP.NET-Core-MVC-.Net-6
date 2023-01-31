@@ -41,8 +41,8 @@
                             *@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index" asp-route-type="0">@Localizer["Regular_Glasses"]</a>     @*User - Admin*@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index" asp-route-type="1">@Localizer["Sun_Glasses"]</a>         @*User - Admin*@
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index" asp-route-type="2">@Localizer["Lenses"]</a>              @*User - Admin*@
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index" asp-route-type="3">@Localizer["Lenses"]</a>              @*User - Admin*@
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index" asp-route-type="3">@Localizer["Monthly_lenses"]</a>      @*User - Admin*@
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index" asp-route-type="2">@Localizer["Daily_lenses"]</a>        @*User - Admin*@
                             </div>
                         </li>
                         @if (User.IsInRole("Admin") || User.IsInRole("User"))
@@ -68,7 +68,7 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="tree" aria-expanded="false">Admin</a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="Brands" asp-action="Index">@Localizer["Users"]</a>            @*Admin*@
+                                    <a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">@Localizer["Users"]</a>            @*Admin*@
                                 </div>
                             </li>
                         }
