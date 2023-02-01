@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 
-@model IEnumerable<ProjectNoVi_V3.Models.ApplicationUser>
+@model IEnumerable<ProjectNoVi_V3.Web.ViewModels.ApplicationUserViewModel>
 
 
 @{
@@ -21,21 +21,19 @@
         </tr>
     </thead>
     <tbody>
-            @*@foreach (var user in Model)
+            @foreach (var user in Model)
             {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => user.Name)
-                    @Html.DisplayFor(modelItem => user.Email)
-                    @Html.DisplayFor(modelItem => user.PhoneNumber)
-
-                </td>
-                <td>
+                <td>@Html.DisplayFor(modelItem => user.UserName)</td>
+                <td>@Html.DisplayFor(modelItem => user.Email)</td>
+                <td>@Html.DisplayFor(modelItem => user.PhoneNumber)</td>
+                <td>@Html.DisplayFor(modelItem => user.Role)</td>             
+@*                <td>
                     <a asp-action="Edit" asp-route-id="@user.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@user.Id">Details</a> |
                     <a asp-action="Delete" asp-route-id="@user.Id">Delete</a>
-                </td>
+                </td>*@
             </tr>
-            }*@
+            }
     </tbody>
 </table>
